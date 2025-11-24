@@ -10,4 +10,42 @@ const homeInlineKeyboard = {
   },
 };
 
-module.exports = homeInlineKeyboard;
+const googleTranslateInlineKeyboard = {
+  reply_markup: {
+    inline_keyboard: [
+      [
+        { text: "فارسی", callback_data: "/fa" },
+        { text: "انگلیسی", callback_data: "/en" },
+      ],
+    ],
+  },
+};
+
+const microsoftTranslateInlineKeyboard = {
+  reply_markup: {
+    inline_keyboard: [
+      [
+        { text: "فارسی", callback_data: "/fa" },
+        { text: "انگلیسی", callback_data: "/en" },
+      ],
+    ],
+  },
+};
+
+const farazinTranslateInlineKeyboard = {
+  reply_markup: {
+    inline_keyboard: [
+      [
+        { text: "فارسی", callback_data: "/en_fa" },
+        { text: "انگلیسی", callback_data: "/fa_en" },
+      ],
+    ],
+  },
+};
+
+module.exports = {
+  homeInlineKeyboard,
+  googleTranslateInlineKeyboard,
+  microsoftTranslateInlineKeyboard,
+  farazinTranslateInlineKeyboard,
+};
