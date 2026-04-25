@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const TelegramBot = require("node-telegram-bot-api");
+const { SocksProxyAgent } = require("socks-proxy-agent"); // <-- ADD THIS
 const db = require("./db");
 const {
   homeMenue,
@@ -12,21 +13,31 @@ const { translations } = require("./locales/messages");
 const request = require("./utils/request");
 const redisClient = require("./redis");
 
-// Here is the token for bot stray_dogs @StrayDogsBot:
 const token = process.env.TELEGRAM_BOT_TOKEN;
 
 if (!token) {
-  console.error(
-    "Error: TELEGRAM_BOT_TOKEN is not set in environment variables"
-  );
+  console.error("Error: TELEGRAM_BOT_TOKEN is not set in environment variables");
   process.exit(1);
 }
 
-const bot = new TelegramBot(token, { polling: true });
+// 1. SETUP THE PROXY AGENT
+const proxyIp = "10.20.40.25";
+const proxyPort = "1080";
+const agent = new SocksProxyAgent(`socks5://${proxyIp}:${proxyPort}`);
+
+// 2. PASS THE AGENT TO THE BOT
+const bot = new TelegramBot(token, { 
+  polling: true,
+  request: {
+    agent: agent,
+    timeout: 30000 // 30 seconds timeout
+  }
+});
+
+// ... REST OF YOUR EXACT CODE (DO NOT CHANGE BELOW) ...
 
 bot.onText(/\/start/, (msg) => {
   const id = msg.chat.id;
-
   homeMenue(bot, id);
 });
 
@@ -94,8 +105,4 @@ bot.on("callback_query", async (query) => {
 
 bot.on("polling_error", (error) => {
   console.error("Polling error:", error);
-});
-
-bot.on("webhook_error", (error) => {
-  console.error("Webhook error:", error);
 });

@@ -4,6 +4,7 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
+    "test1": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.js",
     "dev": "cross-env PORT=3001 nodemon ./src/index.js"
@@ -15,10 +16,11 @@
     "dotenv": "^17.2.3",
     "mysql2": "^3.6.5",
     "node-telegram-bot-api": "^0.66.0",
-    "nodemon": "^3.1.10",
-    "redis": "^5.10.0"
+    "redis": "^5.10.0",
+    "socks-proxy-agent": "^10.0.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.11"
   }
 }
